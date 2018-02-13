@@ -17,16 +17,9 @@ TO DO:
 */
 
 using UnityEngine;
-
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
-
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
 {
@@ -63,7 +56,7 @@ namespace DefaultNamespace
                 string[] files = Directory.GetFiles(Application.dataPath, searchPattern, SearchOption.AllDirectories);
                 if(files.Length == 0)
                 {
-                    Debug.LogError(fileName + " nor found!");
+                    Debug.LogError(fileName + " not found!");
                 }
                 else
                 {
@@ -82,7 +75,7 @@ namespace DefaultNamespace
             List<string> hashes = new List<string>();
             foreach(string fullFileName in pFullFileNames)
             {
-                using(var md5 = MD5.Create())
+                using(var md5 = System.Security.Cryptography.MD5.Create())
                 {
                     using(var stream = File.OpenRead(fullFileName))
                     {

@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace DefaultNamespace
 {
     public class CFileHashGeneratorTest : MonoBehaviour
     {
-
         public string myLog;
 
         public Queue myLogQueue = new Queue();
@@ -62,5 +62,9 @@ namespace DefaultNamespace
 
             GUILayout.Label(myLog);
         }
+
+        public int callbackOrder { get; private set; }
+
+        
     }
 }
