@@ -50,7 +50,7 @@ namespace DefaultNamespace
             {
                 finalHash += h;
             }
-            Debug.Log("Final hash = " + finalHash);
+            Debug.Log("---------Final hash = " + finalHash);
             return finalHash;
         }
 
@@ -87,13 +87,20 @@ namespace DefaultNamespace
                     using(var stream = File.OpenRead(fullFileName))
                     {
                         var hash = md5.ComputeHash(stream).ToHex(false);
-                        Debug.Log(fullFileName + "hash = " + hash);
+                        Debug.Log(GetShortName(fullFileName) + " hash = " + hash);
                         hashes.Add(hash);
                     }
                 }
             }
 
             return hashes;
+        }
+
+        private static string GetShortName(string pFullFileName)
+        {
+            string converted = pFullFileName.Replace("\\", "/");
+            string[] splited = converted.Split('/');
+            return splited[splited.Length - 1];
         }
 
         //=========================================//

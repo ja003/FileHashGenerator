@@ -13,7 +13,17 @@ namespace DefaultNamespace
 
         public void Start()
         {
-            CFileHashGenerator.GetHashFromFiles(new List<string>() { "CFileHashGenerator.cs" });
+            this.Refresh();
+        }
+
+        private void Refresh()
+        {
+            CFileHashGenerator.GetHashFromFiles(
+                new List<string>()
+                {
+                    "CFileHashGenerator.cs",
+                    "Assembly-CSharp.dll"
+                });
         }
 
         public void OnEnable()
@@ -45,6 +55,11 @@ namespace DefaultNamespace
 
         public void OnGUI()
         {
+            if(GUI.Button(new Rect(0, 0, 100, 20), "REFRESH"))
+            {
+                this.Refresh();
+            }
+
             GUILayout.Label(myLog);
         }
     }
