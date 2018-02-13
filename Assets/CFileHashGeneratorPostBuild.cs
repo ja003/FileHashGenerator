@@ -14,12 +14,12 @@ namespace DefaultNamespace
         {
             Debug.Log("OnPostprocessBuild " + path);
 
-            CFileHashGenerator.GetHashFromFiles(
+            /*CFileHashGenerator.GetHashFromFiles(
                 new List<string>()
                 {
                     "CFileHashGenerator.cs",
                     "Assembly-CSharp.dll"
-                });
+                });*/
         }
 
         public int callbackOrder { get; private set; }

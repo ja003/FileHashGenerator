@@ -25,16 +25,28 @@ namespace DefaultNamespace
 {
     public static class CFileHashGenerator
     {
+        public const string CRYPT_KEY = "FU";
+
         //=========================================//
         // PUBLIC METHODS
         //=========================================//
 
-        public static string GetHashFromFiles(List<string> pFileNames, bool pIsAbsolutePath = false)
+        public static string GetHashFromFiles(List<string> pEncryptedFileNames, string pPath)
         {
-            List<string> fullFileNames = pIsAbsolutePath ? pFileNames : GetFullFileNames(pFileNames);
+            List<string> decryptedFileNames = new List<string>();
+            foreach(string fn in pEncryptedFileNames)
+            {
+                string decrypt = CEncryptionRC4.Decrypt(fn, CRYPT_KEY);
+                decryptedFileNames.Add(decrypt);
+                Debug.Log("Decryption of " + fn + " = " + decrypt);
+
+            }
+
+
+            List<string> fullFileNames = GetFullFileNames(decryptedFileNames, pPath);
             if(fullFileNames.Count == 0)
             {
-                Debug.LogError("No fo files to hash found!");
+                Debug.LogError("No files to hash found!");
                 return "";
             }
             List<string> hashesFromFiles = GetFilesHashes(fullFileNames);
@@ -47,13 +59,13 @@ namespace DefaultNamespace
             return finalHash;
         }
 
-        private static List<string> GetFullFileNames(List<string> pFileNames)
+        private static List<string> GetFullFileNames(List<string> pFileNames, string pPath)
         {
             List<string> fullFileNames = new List<string>();
             foreach(string fileName in pFileNames)
             {
                 string searchPattern = "*" + fileName;
-                string[] files = Directory.GetFiles(Application.dataPath, searchPattern, SearchOption.AllDirectories);
+                string[] files = Directory.GetFiles(pPath, searchPattern, SearchOption.AllDirectories);
                 if(files.Length == 0)
                 {
                     Debug.LogError(fileName + " not found!");

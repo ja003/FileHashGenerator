@@ -11,6 +11,12 @@ namespace DefaultNamespace
 
         public Queue myLogQueue = new Queue();
 
+        [SerializeField]
+        private List<string> fileNames;
+
+        [SerializeField]
+        private List<string> encryptedFileNames;
+
         public void Start()
         {
             this.Refresh();
@@ -18,12 +24,22 @@ namespace DefaultNamespace
 
         private void Refresh()
         {
-            CFileHashGenerator.GetHashFromFiles(
-                new List<string>()
-                {
-                    "CFileHashGenerator.cs",
-                    "Assembly-CSharp.dll"
-                });
+            //List<string> fileNames = new List<string>() { "CFileHashGenerator.cs", "Assembly-CSharp.dll" };
+
+            List<string> _encryptedFileNames = new List<string>();
+            foreach(string fn in this.fileNames)
+            {
+                string encryptedFn = CEncryptionRC4.Encrypt(fn, CFileHashGenerator.CRYPT_KEY);
+                _encryptedFileNames.Add(encryptedFn);
+                Debug.Log("Encryption of filename " + fn + " = " + encryptedFn);
+            }
+
+            Debug.Log("Hash of given fileNames");
+            CFileHashGenerator.GetHashFromFiles(_encryptedFileNames, Application.dataPath);
+
+            Debug.Log("Hash of given encryptedFileNames");
+            CFileHashGenerator.GetHashFromFiles(this.encryptedFileNames, Application.dataPath);
+
         }
 
         public void OnEnable()
