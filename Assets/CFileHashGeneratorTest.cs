@@ -19,14 +19,34 @@ namespace DefaultNamespace
 
         public void Start()
         {
+            //this.StartCoroutine(this.AutoRefresh());
             this.Refresh();
         }
 
+        private IEnumerator AutoRefresh()
+        {
+            while(true)
+            {
+                this.Refresh();
+                yield return new WaitForSeconds(2);
+            }
+        }
+        
         private void Refresh()
         {
             //List<string> fileNames = new List<string>() { "CFileHashGenerator.cs", "Assembly-CSharp.dll" };
 
-            List<string> _encryptedFileNames = new List<string>();
+            string hash = CFileHashGenerator.GetHashFromFiles(CFileHashManager.Instance.encryptedNamesOfFilesToHash);
+            if(hash != CFileHashManager.Instance.finalHash)
+            {
+                Debug.LogError("Hashes dont match!");
+            }
+            else
+            {
+                Debug.Log("Hashes match");
+            }
+
+            /*List<string> _encryptedFileNames = new List<string>();
             foreach(string fn in this.fileNames)
             {
                 string encryptedFn = CEncryptionRC4.Encrypt(fn, CFileHashGenerator.CRYPT_KEY);
@@ -38,7 +58,7 @@ namespace DefaultNamespace
             CFileHashGenerator.GetHashFromFiles(_encryptedFileNames, Application.dataPath);
 
             Debug.Log("Hash of given encryptedFiles");
-            CFileHashGenerator.GetHashFromFiles(this.encryptedFileNames, Application.dataPath);
+            CFileHashGenerator.GetHashFromFiles(this.encryptedFileNames, Application.dataPath);*/
 
         }
 
@@ -81,6 +101,6 @@ namespace DefaultNamespace
 
         public int callbackOrder { get; private set; }
 
-        
+
     }
 }

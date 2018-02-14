@@ -39,8 +39,14 @@ namespace DefaultNamespace
         /// <param name="pEncryptedFileNames"></param>
         /// <param name="pPath"></param>
         /// <returns></returns>
-        public static string GetHashFromFiles(List<string> pEncryptedFileNames, string pPath)
+        public static string GetHashFromFiles(List<string> pEncryptedFileNames, string pPath = "")
         {
+            if(pPath.Length == 0)
+            {
+                Debug.Log("Path not specified, using Application.dataPath");
+                pPath = Application.dataPath;
+            }
+
             List<string> decryptedFileNames = new List<string>();
             foreach(string fn in pEncryptedFileNames)
             {

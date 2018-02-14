@@ -44,7 +44,7 @@ namespace DefaultNamespace
         private string hashedFiles;
 
 
-        [MenuItem("AldaEngine/Show FileHashEditor", false, 1)]
+        [MenuItem("AldaEngine/File hash/Show FileHashEditor", false, 1)]
         public static void ShowWindow()
         {
             var window = GetWindow(typeof(CFileHashEditor), true, "AldaEngine FileHashEditor");
@@ -67,20 +67,20 @@ namespace DefaultNamespace
             GUILayout.Space(10f);
 
             GUILayout.BeginVertical();
-            GUILayout.Label("New Key", EditorStyles.boldLabel);
+            GUILayout.Label("File name hash", EditorStyles.boldLabel);
             this.fileName = EditorGUILayout.TextField("fileName", this.fileName);
-
-            GUILayout.Space(10f);
+            
             if(GUILayout.Button("hash file name", GUILayout.Width(255)))
             {
                 this.hashedFileName = CEncryptionRC4.Encrypt(this.fileName, CFileHashGenerator.CRYPT_KEY);
             }
 
-            GUILayout.Space(10f);
             this.hashedFileName = EditorGUILayout.TextField("hashedFileName", this.hashedFileName);
 
 
             GUILayout.Space(10f);
+            GUILayout.Label("Hash of files", EditorStyles.boldLabel);
+            
             this.numberOfFilesToHash = EditorGUILayout.IntField("number of files", this.numberOfFilesToHash);
             Array.Resize(ref this.filesToHash, this.numberOfFilesToHash);
 
@@ -89,25 +89,17 @@ namespace DefaultNamespace
                 this.filesToHash[i] = EditorGUILayout.TextField("file " + i, this.filesToHash[i]);
 
             }
-
-            GUILayout.Space(10f);
+            
             this.path = EditorGUILayout.TextField("path", this.path);
-            GUILayout.Space(10f);
             if(GUILayout.Button("hash files", GUILayout.Width(255)))
             {
                 this.hashedFiles = CFileHashGenerator.EncryptAndGetHashFromFiles(this.filesToHash.ToList(), this.path);
             }
-
-            GUILayout.Space(10f);
+            
             this.hashedFiles = EditorGUILayout.TextField("hashedFiles", this.hashedFiles);
 
             GUILayout.EndVertical();
-
-
-            
-            
         }
-        
     }
 }
 #endif
