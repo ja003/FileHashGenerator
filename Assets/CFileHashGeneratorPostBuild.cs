@@ -12,14 +12,24 @@ namespace DefaultNamespace
     {
         public void OnPostprocessBuild(BuildTarget target, string path)
         {
-            Debug.Log("OnPostprocessBuild " + path);
+
+            string converted = path.Replace("/", "\\");
+            string[] splited = converted.Split('\\');
+            string buildPath = converted.Substring(0, converted.Length - splited[splited.Length - 1].Length);
+            /*for(int i = 0; i < splited.Length - 1; i++)
+            {
+                buildPath += splited[i] + "\\";
+            }*/
+
+            Debug.Log("OnPostprocessBuild " + buildPath);
+
 
             CFileHashGenerator.EncryptAndGetHashFromFiles(
                 new List<string>()
                     {
                         "Assembly-CSharp.dll"
                     },
-                "C:\\Users\\Silentium-2\\Desktop\\unity_try\\FileHash_try\\Builds");// path);
+                buildPath);
         }
 
         public int callbackOrder { get; private set; }
