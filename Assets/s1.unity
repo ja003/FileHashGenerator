@@ -283,15 +283,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1895513306}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f652b22daf864af46ba9e37e787af0a9, type: 3}
+  m_Script: {fileID: 11500000, guid: 73941d453db70354aad826da1131fbf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myLog: 
-  fileNames:
-  - CFileHashGenerator.cs
-  - Assembly-CSharp.dll
-  encryptedFileNames:
-  - nnJChpaq3DVIH8fvdUYV3pY2wtMWpvg+ZVjjx5qOy8qLc+vFe3t+dZeV
 --- !u!4 &1895513308
 Transform:
   m_ObjectHideFlags: 0
