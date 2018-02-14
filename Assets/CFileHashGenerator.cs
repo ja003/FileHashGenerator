@@ -2,16 +2,8 @@
 //=========================================
 AUTHOR:		Adam Jurík
 DATE:		13.02.2018
-FUNCTION: 
-VZOR:
-//=========================================
-EXAMPLE:
-
-//=========================================
-CHANGE LOG:
-
-//=========================================
-TO DO:
+FUNCTION:   Statická třída na vygenerování jednoho hashe pro více souborů.
+Stačí zavolat metodu GetHashFromFiles.
 
 //=========================================
 */
@@ -31,6 +23,12 @@ namespace DefaultNamespace
         // PUBLIC METHODS
         //=========================================//
 
+        /// <summary>
+        /// Vrátí jeden hash pro zadané soubory.
+        /// </summary>
+        /// <param name="pEncryptedFileNames"></param>
+        /// <param name="pPath"></param>
+        /// <returns></returns>
         public static string GetHashFromFiles(List<string> pEncryptedFileNames, string pPath)
         {
             List<string> decryptedFileNames = new List<string>();
@@ -39,9 +37,7 @@ namespace DefaultNamespace
                 string decrypt = CEncryptionRC4.Decrypt(fn, CRYPT_KEY);
                 decryptedFileNames.Add(decrypt);
                 Debug.Log("Decryption of " + fn + " = " + decrypt);
-
             }
-
 
             List<string> fullFileNames = GetFullFileNames(decryptedFileNames, pPath);
             if(fullFileNames.Count == 0)
@@ -58,6 +54,10 @@ namespace DefaultNamespace
             Debug.Log("---------Final hash = " + finalHash);
             return finalHash;
         }
+
+        //=========================================//
+        // PRIVATE METHODS
+        //=========================================//  
 
         private static List<string> GetFullFileNames(List<string> pFileNames, string pPath)
         {
@@ -107,10 +107,6 @@ namespace DefaultNamespace
             string[] splited = converted.Split('/');
             return splited[splited.Length - 1];
         }
-
-        //=========================================//
-        // PRIVATE METHODS
-        //=========================================//  
 
         public static string ToHex(this byte[] bytes, bool upperCase)
         {

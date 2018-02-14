@@ -34,10 +34,10 @@ namespace DefaultNamespace
                 Debug.Log("Encryption of filename " + fn + " = " + encryptedFn);
             }
 
-            Debug.Log("Hash of given fileNames");
+            Debug.Log("Hash of given files");
             CFileHashGenerator.GetHashFromFiles(_encryptedFileNames, Application.dataPath);
 
-            Debug.Log("Hash of given encryptedFileNames");
+            Debug.Log("Hash of given encryptedFiles");
             CFileHashGenerator.GetHashFromFiles(this.encryptedFileNames, Application.dataPath);
 
         }
