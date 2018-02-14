@@ -1,7 +1,26 @@
-﻿using System.Collections;
+﻿/*
+//=========================================
+AUTHOR:		Adam Jurík
+DATE:		13.02.2018
+FUNCTION:   Testovací třída funkčnosti CFileHashGenerator.
+
+//=========================================
+EXAMPLE:
+1. Přidejte tento skript na objekt ve scéně.
+2. Po spuštění vygeneruje hash souborů specifikovaných v CFileHashManager.encryptedNamesOfFilesToHash
+- vypisuje do logu a zároveň zobrazuje log na canvase
+(vygenerování hashe se dá znova vyvolat GUI tlačítekm Refresh)
+3. V DLLSpy změňte cokoliv v nějakém sledovaném souboru
+4. Po Refresh bude výsledný hash jiný.
+
+//=========================================
+*/
+
+
+using System.Collections;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace AldaEngine
 {
     public class CFileHashGeneratorTest : MonoBehaviour
     {
@@ -30,21 +49,6 @@ namespace DefaultNamespace
 
             string hash = CFileHashGenerator.GetHashFromFiles(CFileHashManager.Instance.encryptedNamesOfFilesToHash);
             //TODO: check if generated hash matches with hash on server
-
-            /*List<string> _encryptedFileNames = new List<string>();
-            foreach(string fn in this.fileNames)
-            {
-                string encryptedFn = CEncryptionRC4.Encrypt(fn, CFileHashGenerator.CRYPT_KEY);
-                _encryptedFileNames.Add(encryptedFn);
-                Debug.Log("Encryption of filename " + fn + " = " + encryptedFn);
-            }
-
-            Debug.Log("Hash of given files");
-            CFileHashGenerator.GetHashFromFiles(_encryptedFileNames, Application.dataPath);
-
-            Debug.Log("Hash of given encryptedFiles");
-            CFileHashGenerator.GetHashFromFiles(this.encryptedFileNames, Application.dataPath);*/
-
         }
 
         public void OnEnable()
@@ -84,8 +88,6 @@ namespace DefaultNamespace
             GUILayout.Label(myLog);
         }
 
-        public int callbackOrder { get; private set; }
-
-
+        public int callbackOrder { get; set; }
     }
 }

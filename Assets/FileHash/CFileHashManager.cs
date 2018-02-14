@@ -2,41 +2,39 @@
 //=========================================
 AUTHOR:		Adam Jurík
 DATE:		14.02.2018
-FUNCTION: 
-VZOR:
+FUNCTION:   Scriptable object, na kterém se definuje, jaké soubory budou podléhat hashovací kontrole.
+
+Soubory se specifikují jako zakryptovaný název soubory (i s příponou). Pro vygenerování zakritovaného jména 
+souboru použijte CFileHashEditor.
+
+Soubory jsou uloženy zakriptovaně, aby hacker nenašel spojitost tak lehce.
+
 //=========================================
 EXAMPLE:
-
-//=========================================
-CHANGE LOG:
-
-//=========================================
-TO DO:
+příklad hashe souboru:
+encryptedNamesOfFilesToHash.element0 = nHJ3hoyq1TVAH+3veEYf3tM2xtMgpv4+YVjjx4uOkcqAc/XFOXs=
 
 //=========================================
 */
 
-
-
 using UnityEngine;
 using System.Collections.Generic;
-using AldaEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-namespace DefaultNamespace
+namespace AldaEngine
 {
     [CAssetPath("CFileHashManager")]
     public class CFileHashManager : CScriptableSingleton<CFileHashManager>
     {
         [Header("Files to hash")]
         [SerializeField]
-        [Tooltip("Use CFileHashEditor to encrypt names of files you want to hash")]
+        [Tooltip("Pro získání zakryptovaného názvu souboru použijte CFileHashEditor.")]
         public List<string> encryptedNamesOfFilesToHash;
         [Space(2)]
-
-        [Tooltip("Hash of given files will be generated automatically and will be displayed in Log.")]
+        
+        [Tooltip("Po dokončení buildu bude hash vygenerován automaticky a vypíše se do Logu.")]
         [SerializeField]
         public bool generateHashAfterBuild;
 

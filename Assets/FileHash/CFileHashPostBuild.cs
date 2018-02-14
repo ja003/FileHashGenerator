@@ -1,14 +1,25 @@
-﻿#if UNITY_EDITOR
+﻿/*
+//=========================================
+AUTHOR:		Adam Jurík
+DATE:		14.02.2018
+FUNCTION:   Třída pro automatické vygenerování hashe souborů specifikovaných v CFileHashManager.
 
-using System.Collections;
-using System.Collections.Generic;
+Pro automatické generování je třeba mít zaškrtlé CFileHashManager.generateHashAfterBuild.
+
+Třída je pouze pro automatizaci, výsledný hash se dá zjistit i přes CFileHashEditor, ale 
+je třeba to manuálně naklikat.
+
+//=========================================
+*/
+
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build;
 
-namespace DefaultNamespace
+namespace AldaEngine
 {
-    public class CFileHashGeneratorPostBuild : IPostprocessBuild
+    public class CFileHashPostBuild : IPostprocessBuild
     {
         public void OnPostprocessBuild(BuildTarget target, string path)
         {
@@ -21,13 +32,6 @@ namespace DefaultNamespace
             CFileHashGenerator.GetHashFromFiles(
                 CFileHashManager.Instance.encryptedNamesOfFilesToHash,
                 buildPath);
-
-            //CFileHashGenerator.EncryptAndGetHashFromFiles(
-            //    new List<string>
-            //        {
-            //            "Assembly-CSharp.dll"
-            //        },
-            //    buildPath);
         }
 
         private string GetBuildPath(string pExePath)
@@ -38,7 +42,7 @@ namespace DefaultNamespace
             return buildPath;
         }
 
-        public int callbackOrder { get; private set; }
+        public int callbackOrder { get; set; }
     }
 }
 #endif

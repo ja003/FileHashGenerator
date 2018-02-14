@@ -2,16 +2,17 @@
 //=========================================
 AUTHOR:		Adam Jurík
 DATE:		14.02.2018
-FUNCTION: 
-VZOR:
+FUNCTION:   Editorové okno pro vygenerování zakryptovaného názvu souboru, který bude podléhat kontrole.
+
+Sekce "Hash of files" je pro manuální vygenerování hashe souborů. Stačí použít automatizovanou funkci 
+CFileHashManager.generateHashAfterBuild, která vygenerování udělá automaticky po buildu.
+
 //=========================================
 EXAMPLE:
-
-//=========================================
-CHANGE LOG:
-
-//=========================================
-TO DO:
+File name encyption
+1. do fileName vložím Assembly-CSharp.dll
+2. vygeneruji si zakryptovaný název souboru
+3. zakryptovaný název zkopíruji do CFileHashManager.encryptedNamesOfFilesToHash
 
 //=========================================
 */
@@ -19,63 +20,43 @@ TO DO:
 #if UNITY_EDITOR
 
 using UnityEngine;
-
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-
 using UnityEditor;
 
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
-
-namespace DefaultNamespace
+namespace AldaEngine
 {
     public class CFileHashEditor : EditorWindow
     {
-        private string fileName; //(with ext, not full path)
-        private string hashedFileName; //use this in 
-
+        private string fileName; 
+        private string encryptedFileName; 
 
         private int numberOfFilesToHash;
         private string[] filesToHash;
         private string path;
         private string hashedFiles;
 
-
         [MenuItem("AldaEngine/File hash/Show FileHashEditor", false, 1)]
         public static void ShowWindow()
         {
             var window = GetWindow(typeof(CFileHashEditor), true, "AldaEngine FileHashEditor");
-            window.position = new Rect(200, 200, 600, 600);
+            window.position = new Rect(200, 200, 600, 300);
         }
-
-        void OnEnable()
-        {
-            //this.filesToHash = new string[this.numberOfFilesToHash];
-
-        }
-
-        void OnDisable()
-        {
-        }
-
 
         void OnGUI()
         {
             GUILayout.Space(10f);
 
             GUILayout.BeginVertical();
-            GUILayout.Label("File name hash", EditorStyles.boldLabel);
+            GUILayout.Label("File name encyption", EditorStyles.boldLabel);
             this.fileName = EditorGUILayout.TextField("fileName", this.fileName);
             
-            if(GUILayout.Button("hash file name", GUILayout.Width(255)))
+            if(GUILayout.Button("encrypt file name", GUILayout.Width(255)))
             {
-                this.hashedFileName = CEncryptionRC4.Encrypt(this.fileName, CFileHashGenerator.CRYPT_KEY);
+                this.encryptedFileName = CEncryptionRC4.Encrypt(this.fileName, CFileHashGenerator.CRYPT_KEY);
             }
 
-            this.hashedFileName = EditorGUILayout.TextField("hashedFileName", this.hashedFileName);
+            this.encryptedFileName = EditorGUILayout.TextField("encryptedFileName", this.encryptedFileName);
             GUILayout.Label("Copy this to CFileHashManager", EditorStyles.miniLabel);
 
 
