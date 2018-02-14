@@ -23,6 +23,16 @@ namespace DefaultNamespace
         // PUBLIC METHODS
         //=========================================//
 
+        public static string EncryptAndGetHashFromFiles(List<string> pNotEncryptedFileNames, string pPath)
+        {
+            for(int i=0; i<pNotEncryptedFileNames.Count;i++)
+            {
+                pNotEncryptedFileNames[i] = CEncryptionRC4.Encrypt(pNotEncryptedFileNames[i], CFileHashGenerator.CRYPT_KEY);
+            }
+            return GetHashFromFiles(pNotEncryptedFileNames, pPath);
+        }
+
+
         /// <summary>
         /// Vrátí jeden hash pro zadané soubory.
         /// </summary>

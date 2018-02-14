@@ -37,6 +37,13 @@ namespace DefaultNamespace
         private string fileName; //(with ext, not full path)
         private string hashedFileName; //use this in 
 
+
+        private int numberOfFilesToHash;
+        private string[] filesToHash;
+        private string path;
+        private string hashedFiles;
+
+
         [MenuItem("AldaEngine/Show FileHashEditor", false, 1)]
         public static void ShowWindow()
         {
@@ -46,6 +53,8 @@ namespace DefaultNamespace
 
         void OnEnable()
         {
+            //this.filesToHash = new string[this.numberOfFilesToHash];
+
         }
 
         void OnDisable()
@@ -70,7 +79,31 @@ namespace DefaultNamespace
             GUILayout.Space(10f);
             this.hashedFileName = EditorGUILayout.TextField("hashedFileName", this.hashedFileName);
 
+
+            GUILayout.Space(10f);
+            this.numberOfFilesToHash = EditorGUILayout.IntField("number of files", this.numberOfFilesToHash);
+            Array.Resize(ref this.filesToHash, this.numberOfFilesToHash);
+
+            for(int i = 0; i < this.numberOfFilesToHash; i++)
+            {
+                this.filesToHash[i] = EditorGUILayout.TextField("file " + i, this.filesToHash[i]);
+
+            }
+
+            GUILayout.Space(10f);
+            this.path = EditorGUILayout.TextField("path", this.path);
+            GUILayout.Space(10f);
+            if(GUILayout.Button("hash files", GUILayout.Width(255)))
+            {
+                this.hashedFiles = CFileHashGenerator.EncryptAndGetHashFromFiles(this.filesToHash.ToList(), this.path);
+            }
+
+            GUILayout.Space(10f);
+            this.hashedFiles = EditorGUILayout.TextField("hashedFiles", this.hashedFiles);
+
             GUILayout.EndVertical();
+
+
             
             
         }
