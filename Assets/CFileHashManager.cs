@@ -32,20 +32,13 @@ namespace DefaultNamespace
     {
         [Header("Files to hash")]
         [SerializeField]
-        [Tooltip("")]
+        [Tooltip("Use CFileHashEditor to encrypt names of files you want to hash")]
         public List<string> encryptedNamesOfFilesToHash;
         [Space(2)]
 
-        [Tooltip("")]
+        [Tooltip("Hash of given files will be generated automatically and will be displayed in Log.")]
         [SerializeField]
         public bool generateHashAfterBuild;
-
-        [Tooltip("")]
-        [SerializeField]
-        public string finalHash;
-
-
-
 
 #if UNITY_EDITOR
         //=========================================//
@@ -64,11 +57,6 @@ namespace DefaultNamespace
             public override void OnInspectorGUI()
             {
                 this.DrawDefaultInspector();
-
-                if(GUILayout.Button("Set build values", GUILayout.MaxWidth(200)))
-                {
-                    //CAndroidAutoKeystoreManager.SetBuildValues(true);
-                }
             }
         }
 #endif

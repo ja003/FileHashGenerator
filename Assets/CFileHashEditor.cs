@@ -76,14 +76,17 @@ namespace DefaultNamespace
             }
 
             this.hashedFileName = EditorGUILayout.TextField("hashedFileName", this.hashedFileName);
+            GUILayout.Label("Copy this to CFileHashManager", EditorStyles.miniLabel);
 
 
             GUILayout.Space(10f);
             GUILayout.Label("Hash of files", EditorStyles.boldLabel);
-            
+            GUILayout.Label("This is just a check of functionality. hash will be genberated automatically" +
+                " if CFileHashManager.generateHashAfterBuild is checked.", EditorStyles.miniLabel);
+
             this.numberOfFilesToHash = EditorGUILayout.IntField("number of files", this.numberOfFilesToHash);
             Array.Resize(ref this.filesToHash, this.numberOfFilesToHash);
-
+            GUILayout.Label("Specify file names (with extension) which you want to make hash of.", EditorStyles.miniLabel);
             for(int i = 0; i < this.numberOfFilesToHash; i++)
             {
                 this.filesToHash[i] = EditorGUILayout.TextField("file " + i, this.filesToHash[i]);
@@ -97,6 +100,7 @@ namespace DefaultNamespace
             }
             
             this.hashedFiles = EditorGUILayout.TextField("hashedFiles", this.hashedFiles);
+            GUILayout.Label("This value will be stored at server.", EditorStyles.miniLabel);
 
             GUILayout.EndVertical();
         }

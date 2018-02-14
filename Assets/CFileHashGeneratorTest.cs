@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -10,13 +8,7 @@ namespace DefaultNamespace
         public string myLog;
 
         public Queue myLogQueue = new Queue();
-
-        [SerializeField]
-        private List<string> fileNames;
-
-        [SerializeField]
-        private List<string> encryptedFileNames;
-
+        
         public void Start()
         {
             //this.StartCoroutine(this.AutoRefresh());
@@ -37,14 +29,7 @@ namespace DefaultNamespace
             //List<string> fileNames = new List<string>() { "CFileHashGenerator.cs", "Assembly-CSharp.dll" };
 
             string hash = CFileHashGenerator.GetHashFromFiles(CFileHashManager.Instance.encryptedNamesOfFilesToHash);
-            if(hash != CFileHashManager.Instance.finalHash)
-            {
-                Debug.LogError("Hashes dont match!");
-            }
-            else
-            {
-                Debug.Log("Hashes match");
-            }
+            //TODO: check if generated hash matches with hash on server
 
             /*List<string> _encryptedFileNames = new List<string>();
             foreach(string fn in this.fileNames)
